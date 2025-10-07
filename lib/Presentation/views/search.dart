@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/Behaviour/Core/Resources/colors_manager.dart';
+import 'package:weather_app/Behaviour/services/cites_data.dart';
 
-class Search extends StatelessWidget {
+class Search extends StatefulWidget {
   const Search({super.key});
 
   @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
+  @override
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    CitesData().getCitesData();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +43,9 @@ class Search extends StatelessWidget {
             fontWeight: FontWeight.w400,
           ),
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(25,),
+            contentPadding: const EdgeInsets.all(
+              25,
+            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(color: ColorsManager.orange),
