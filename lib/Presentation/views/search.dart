@@ -41,7 +41,7 @@ class Search extends StatelessWidget {
               ),
               borderSide: BorderSide(color: ColorsManager.orange),
             ),
-            labelText: "Style",
+            labelText: "Search",
             labelStyle: TextStyle(
               color: ColorsManager.orange,
               fontSize: 20,
