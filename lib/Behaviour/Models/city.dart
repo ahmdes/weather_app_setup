@@ -1,5 +1,6 @@
 class City {
-  final String name, lastUpdated, icon, weatherStatus, maxTemp, minTemp;
+  final String name, lastUpdated, icon, weatherStatus;
+  double  maxTemp, minTemp;
   City(
       {required this.name,
       required this.lastUpdated,
@@ -15,7 +16,7 @@ class City {
       weatherStatus: data["forecast"]["forecastday"][0]["day"]['condition']
           ["text"],
       maxTemp: data["forecast"]["forecastday"][0]["day"]['maxtemp_c'],
-      minTemp: data["forecast"]["forecastday"][0]["day"]['mimtemp_c'],
+      minTemp: data["forecast"]["forecastday"][0]["day"]['mintemp_c'],
     );
   }
 }

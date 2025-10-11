@@ -6,5 +6,5 @@ class ColorsManager {
   static Color orange = Colors.orange;
   static Color black = Colors.black;
   static Color brown = Colors.brown;
-
+  static Color red = Colors.red;
 }
