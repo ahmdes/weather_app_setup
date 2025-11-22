@@ -1,6 +1,7 @@
 class City {
-  final String name, lastUpdated, icon, weatherStatus;
-  double  maxTemp, minTemp;
+  final String name, icon, weatherStatus;
+  double maxTemp, minTemp;
+  DateTime lastUpdated;
   City(
       {required this.name,
       required this.lastUpdated,
@@ -11,7 +12,7 @@ class City {
   factory City.fromJson(Map<String, dynamic> data) {
     return City(
       name: data["location"]["name"],
-      lastUpdated: data["current"]["last_updated"],
+      lastUpdated: DateTime.parse(data["current"]["last_updated"]),
       icon: data["forecast"]["forecastday"][0]["day"]['condition']["icon"],
       weatherStatus: data["forecast"]["forecastday"][0]["day"]['condition']
           ["text"],

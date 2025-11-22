@@ -1,83 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/Behaviour/Core/Resources/colors_manager.dart';
-import 'package:weather_app/Presentation/views/home_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/Behaviour/cubites/get_weather_cubit/get_weather_cubit.dart';
 
+// ignore: must_be_immutable
 class Search extends StatelessWidget {
-  Search({super.key});
+  Search({super.key, required this.colorGradiant});
 
   TextEditingController cityName = TextEditingController();
+  List<Color> colorGradiant;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: ColorsManager.white,
-          size: 30,
-        ),
-        title: Text(
+        title: const Text(
           "Search a city",
-          style: TextStyle(
-            color: ColorsManager.white,
-            fontWeight: FontWeight.w700,
-            fontSize: 30,
+        ),
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: colorGradiant,
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
-        backgroundColor: ColorsManager.orange,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            TextField(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: TextField(
               controller: cityName,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
               ),
               decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(
-                  25,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: ColorsManager.orange),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    10,
-                  ),
-                  borderSide: BorderSide(color: ColorsManager.orange),
-                ),
                 labelText: "Search",
-                labelStyle: TextStyle(
-                  color: ColorsManager.orange,
-                  fontSize: 20,
-                ),
                 hintText: "Enter City Name",
-                hintStyle: TextStyle(
-                  color: ColorsManager.brown,
-                  fontSize: 20,
-                ),
                 suffixIcon: IconButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeView(
-                          cityName: cityName.text,
-                        ),
-                      ),
-                    );
+                    var getWeatherCubit =
+                        BlocProvider.of<GetWeatherCubit>(context);
+                    getWeatherCubit.getWeather(cityName: cityName.text);
+                    Navigator.pop(context);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.search,
-                    color: ColorsManager.black,
                   ),
                 ),
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

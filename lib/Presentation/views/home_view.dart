@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/Behaviour/Core/Resources/colors_manager.dart';
 import 'package:weather_app/Behaviour/Models/city.dart';
+import 'package:weather_app/Behaviour/cubites/get_weather_cubit/get_weather_cubit.dart';
+import 'package:weather_app/Behaviour/cubites/get_weather_cubit/weather_cubit_states.dart';
 import 'package:weather_app/Behaviour/services/cites_data.dart';
 import 'package:weather_app/Presentation/views/search.dart';
-
-import '../widgets/build_city_view.dart';
+import 'package:weather_app/Presentation/widgets/weather_info_body.dart';
 import '../widgets/no_weather_body.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({
     Key? key,
     this.cityName,
+    required this.colorGradiant,
   }) : super(key: key);
   final String? cityName;
+  final List<Color> colorGradiant;
   @override
   State<HomeView> createState() => _HomeViewState();
 }
@@ -20,7 +24,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (widget.cityName != null) {
       getData();
@@ -35,13 +38,12 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: ColorsManager.blue,
-        title: Text(
+        title: const Text(
           'Weather App',
           style: TextStyle(
-              color: ColorsManager.white,
-              fontSize: 30,
-              fontWeight: FontWeight.w700),
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+          ),
         ),
         actions: [
           IconButton(
@@ -49,57 +51,41 @@ class _HomeViewState extends State<HomeView> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => Search(),
+                  builder: (context) => Search(
+                    colorGradiant: widget.colorGradiant,
+                  ),
                 ),
               );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.search,
-              color: ColorsManager.white,
               size: 40,
             ),
           ),
         ],
       ),
-      body: widget.cityName == null
-          ? const NoWeatherBody()
-          : FutureBuilder(
-              future: getData(),
-              builder: (context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.hasError) {
-                  return Center(
-                    child: Text(
-                      "Error : ${snapshot.error}",
-                      style: TextStyle(
-                        color: ColorsManager.red,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                      ),
-                    ),
-                  );
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.white,
-                    ),
-                  );
-                } else if (snapshot.hasData) {
-                  return BuildCityView(cityData: snapshot.data);
-                } else {
-                  return Center(
-                    child: Text(
-                      "There is no data",
-                      style: TextStyle(
-                        color: ColorsManager.orange,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
+      body: BlocBuilder<GetWeatherCubit, WeatherState>(
+        builder: (context, state) {
+          if (state is NoWeatherData) {
+            return const NoWeatherBody();
+          } else if (state is ShowWeatherData) {
+            return WeatherInfoBody(
+              colorGradiant: widget.colorGradiant,
+            );
+          } else {
+            return Center(
+              child: Text(
+                "OOPS , there was an error",
+                style: TextStyle(
+                  color: ColorsManager.red,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            );
+          }
+        },
+      ),
     );
   }
 }

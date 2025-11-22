@@ -26,7 +26,7 @@ class BuildCityView extends StatelessWidget {
               ),
             ),
             Text(
-              "Updated at : ${cityData.lastUpdated}",
+              "Updated at ${cityData.lastUpdated}",
               style: TextStyle(
                 color: ColorsManager.black,
                 fontWeight: FontWeight.w500,
@@ -46,7 +46,7 @@ class BuildCityView extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${cityData.maxTemp}",
+                  "Maxtemp: ${cityData.maxTemp}",
                   style: TextStyle(
                     color: ColorsManager.black,
                     fontWeight: FontWeight.w500,
@@ -59,7 +59,7 @@ class BuildCityView extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      "${cityData.minTemp}",
+                      "Mintemp: ${cityData.minTemp}",
                       style: TextStyle(
                         color: ColorsManager.black,
                         fontWeight: FontWeight.w500,
