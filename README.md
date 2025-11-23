@@ -26,4 +26,18 @@ This project helped me learn and practice:
 - ⚡ Fast and lightweight  
 
 ---
+## 📱 Demo  
 
+🎥 [Watch the Demo Video](https://youtu.be/VrmGolCXnzQ)  
+
+---
+
+## 📬 Contact
+
+Feel free to connect or reach out:
+
+- 💼 [LinkedIn](https://www.linkedin.com/in/ahmed-mostafa-daoud)  
+- 📧 [Email](mailto:ahmed.mostafa.elshekh@gmail.com)  
+- 📱 WhatsApp: [wa.me/201029121638](https://wa.me/201029121638)  
+
+---
