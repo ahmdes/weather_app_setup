@@ -21,9 +21,7 @@ This project helped me learn and practice:
 - 🌍 Search weather by country or city  
 - ☁️ Real-time weather data fetched from Weather API  
 - 🔄 State management using **Cubit**  
-- 🎨 Clean and responsive UI  
 - 📡 Loading and error handling  
-- ⚡ Fast and lightweight  
 
 ---
 ## 📱 Demo  
